@@ -1,0 +1,89 @@
+my_ml_project/
+│
+├── data/
+│   ├── raw/
+│   │   ├── raw_data_file.csv
+│   │   └── ...
+│   ├── processed/
+│   │   ├── train_data.csv
+│   │   ├── test_data.csv
+│   │   └── ...
+│   └── ...
+│
+├── notebooks/
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   ├── 03_model_training.ipynb
+│   ├── 04_model_evaluation.ipynb
+│   └── ...
+│
+├── src/
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── data_loader.py
+│   │   └── data_preprocessor.py
+│   │
+│   ├── features/
+│   │   ├── __init__.py
+│   │   ├── feature_engineering.py
+│   │   └── ...
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── model_trainer.py
+│   │   ├── model_evaluator.py
+│   │   └── ...
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       ├── config.py
+│       └── helper_functions.py
+│
+├── config/
+│   └── config.yaml
+│
+├── requirements.txt
+├── README.md
+├── main.py
+└── ...
+
+------
+
+
+data/: This directory contains subdirectories for raw and processed data. Raw data is stored as received, while processed data is cleaned and transformed for use in model training.
+
+notebooks/: Jupyter notebooks for different stages of the ML pipeline, allowing for interactive exploration and analysis. These notebooks can serve as documentation for your work.
+
+src/: This is where your source code resides, organized by functionality.
+
+data/: Handles data loading and preprocessing.
+features/: Contains scripts for feature engineering.
+models/: Includes code for model training and evaluation.
+utils/: Common utilities, such as configuration and helper functions.
+config/: Configuration files (e.g., YAML files) for storing hyperparameters and other settings.
+
+requirements.txt: Lists the dependencies required for your project. It can be generated using pip freeze > requirements.txt.
+
+README.md: Documentation about your project, including how to set it up, usage instructions, and any other relevant information.
+
+main.py: A script to tie everything together. It might load configuration, call functions from src/, and orchestrate the end-to-end pipeline.
+
+
+------
+
+
+src/ (source code):
+
+data/: Code for loading and preprocessing data programmatically. This could include functions and classes for fetching data from APIs, cleaning data, and splitting it into train/test sets.
+features/: Code for feature engineering. Functions or classes that transform raw data into feature vectors suitable for model training.
+models/: Code for building, training, and evaluating machine learning models. This could include functions or classes for model training, hyperparameter tuning, and evaluation metrics.
+utils/: Common utility functions and configurations that are shared across different parts of the project.
+notebooks/ (Jupyter notebooks):
+
+Interactive notebooks for data exploration, visualization, and experimentation. These can serve as a valuable tool for understanding your data, trying out different ideas, and documenting your thought process.
+While notebooks are great for exploration, they may not be as modular and reusable as the code in src/. Once you've found effective data processing or model training steps in a notebook, consider moving them to functions or classes in your source code for better organization and maintainability.
+
+
+-----
+
+** cookiecutter **

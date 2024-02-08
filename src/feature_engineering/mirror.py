@@ -86,8 +86,12 @@ def make_mirror_games(game : pd.Series) -> (pd.Series, pd.Series):
 # * column names are changed from 'stat_home' and 'stat_away' to 'stat_for' and 'stat_against'
 # * game_id's are duplicated; home team perspective is even, away team perspective is odd
 def make_mirror_df(df : pd.DataFrame) -> pd.DataFrame:    
-    # Make 'GAME_ID' the index
+
+    # Drop na's and duplicate games
+    df = df.dropna()
     df = df.drop_duplicates(subset=['GAME_ID'], keep='first')
+    
+    # Make 'GAME_ID' the index
     df.set_index('GAME_ID', inplace=True)
 
     # make mirror_df index

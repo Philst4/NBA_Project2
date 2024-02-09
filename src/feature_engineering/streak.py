@@ -30,9 +30,9 @@ def make_streak_df(mirror_df : pd.DataFrame, ks) -> pd.DataFrame:
     new_cols = meta_cols + new_stat_cols
     streak_df = pd.DataFrame(index=index, columns=new_cols)
     
-    
-    
     # Adds data to <streak_df> using streaks from the same season
+    print("k values: {}".format(ks))
+    print("features: {}".format(new_cols))
     
     
     # Sort <streak_df> by season
@@ -44,7 +44,7 @@ def make_streak_df(mirror_df : pd.DataFrame, ks) -> pd.DataFrame:
         
         # Make a df for the current season, sort by team
         season_df = mirror_df[mirror_df['SEASON'] == season]
-        season_df.sort_values(by='TEAM_ID', inplace=True)
+        season_df.sort_values(by='TEAM_ID')
         
         teams = season_df['TEAM_ID'].unique()
         
@@ -60,6 +60,7 @@ def make_streak_df(mirror_df : pd.DataFrame, ks) -> pd.DataFrame:
                 prev_games = team_df[team_df['GAME_DATE_EST'] < game_date]
                 prev_games = prev_games.sort_values(by='GAME_DATE_EST', ascending=False)
                 
+                # add stat col data to <streak_df>
                 for k in ks:
                     if k == 0:
                         # Contains stats calculated from all previous games
@@ -70,8 +71,11 @@ def make_streak_df(mirror_df : pd.DataFrame, ks) -> pd.DataFrame:
                     for col in old_stat_cols:
                         streak_col = make_streak_col(col, k)
                         streak_df.at[game, streak_col] = prev_k_games[col].mean()
-                        
-    
+                
+                # add meta col data to <streak_df>
+                for col in meta_cols:
+                    streak_df.at[game, col] = team_df.at[game, col]   
+
     return streak_df
 
 
@@ -81,9 +85,11 @@ def make_streak_df(mirror_df : pd.DataFrame, ks) -> pd.DataFrame:
 
 start = time.time()
 
-mirror_df = pd.read_csv('../../data/processed/mirror.csv')
+mirror_df = pd.read_csv('../../data/processed/mirror.csv', index_col=0)
 
-streak_df = make_streak_df(mirror_df, [0, 1, 3, 5, 10, 20])
+
+ks = [0, 1, 3, 5, 10, 20]
+streak_df = make_streak_df(mirror_df, ks)
 
 streak_df.to_csv('../../data/processed/streak.csv', index=True)
 

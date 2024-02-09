@@ -8,6 +8,13 @@ def mirror_id_map(id, is_home):
         return id * 2
     else:
         return id * 2 + 1
+    
+# returns the game_id, and whether or not the mirror_id 
+# is from the home team perspective
+# helper function for flattening merged/streak data into one game instance
+def mirror_id_inv_map(mirror_id):
+    is_home = mirror_id % 2 == 0
+    return mirror_id // 2, is_home
 
 # Makes an index for the mirror data from the index of the original data
 def make_mirror_index(df : pd.DataFrame) -> pd.Index:

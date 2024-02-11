@@ -1,0 +1,4 @@
+TODO 
+
+* Add is_home to streak data
+* Implement some framework for MLOps
